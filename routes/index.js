@@ -14,11 +14,11 @@ router.param('quizId', quizController.load);
 router.get('/quizes',                      quizController.index);
 router.get('/quizes/:quizId(\\d+)',        quizController.show);
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
-router.get('/quizes/nuevo',quizcontroller.new);
-router.post('/quizes/create',quizcontroller.create);
-router.get('/quizes/:quizId(\\d+)/edit',quizcontroller.edit);
-router.put('/quizes/:quizId(\\d+)',quizcontroller.update);
-router.delete('/quizes/:quizId(\\d+)',quizcontroller.destroy);
+router.get('/quizes/nuevo',quizController.new);
+router.post('/quizes/create',quizController.create);
+router.get('/quizes/:quizId(\\d+)/edit',quizController.edit);
+router.put('/quizes/:quizId(\\d+)',quizController.update);
+router.delete('/quizes/:quizId(\\d+)',quizController.destroy);
 //definición de ruta de author
 router.get('/author', quizController.author);
 
