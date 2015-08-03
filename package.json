@@ -6,11 +6,11 @@
     "start": "node ./bin/www"
   },
   "engines": {
-  "node": "0.10.x",
-  "npm": "2.x"
+    "node": "0.12.x",
+    "npm": "2.5.x"
   },
   "devDependencies": {
-  "sqlite3": "^3.0.9"
+    "sqlite3": "^3.0.9"
   },
   "dependencies": {
     "body-parser": "~1.13.1",
@@ -19,6 +19,7 @@
     "ejs": "~2.3.2",
     "express": "~4.13.0",
     "express-partials": "^0.3.0",
+    "method-override": "^2.3.5",
     "morgan": "~1.6.1",
     "pg": "^4.4.1",
     "pg-hstore": "^2.3.2",
