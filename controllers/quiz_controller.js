@@ -17,14 +17,14 @@ exports.load = function(req, res, next, quizId){
 // GET /quizes                 || listado de preguntas
 exports.index = function(req, res, next){
     models.Quiz.findAll().then(function(quizes){
-        res.render('quizes/index', {quizes: quizes,errors:[]});
+        res.render('quizes/index', {quizes: quizes, errors:[]});
         }
     ).catch(function(error) { next(error); })
 };
 
 // GET /quizes/:id             || pregunta seleccionada
 exports.show = function(req, res) {
-    res.render('quizes/show', {quiz: req.quiz,errors:[]});
+    res.render('quizes/show', {quiz: req.quiz, errors:[]});
 };
 
 // GET /quizes/ :id/answer     || comprobación de respuesta
@@ -43,7 +43,7 @@ exports.new = function(req,res){
     var quiz = models.Quiz.build({
         pregunta: "Pregunta", respuesta: "Respuesta", tema: "Tema"
     });
-    res.render('quizes/new', {quiz: quiz,errors:[]});
+    res.render('quizes/new', {quiz: quiz, errors:[]});
 };
 
 // Crear nueva pregunta
@@ -65,7 +65,7 @@ exports.create = function(req,res){
 // Edición de preguntas
 exports.edit = function(req,res){
     var quiz = req.quiz;
-    res.render('quizes/edit', {quiz: quiz,errors:[]});
+    res.render('quizes/edit', {quiz: quiz, errors:[]});
 };
 
 // Actualización de cambios
@@ -98,5 +98,5 @@ exports.destroy = function(req,res,next){
 
 // Carga la vista de Autor
 exports.author = function(req, res){
-    res.render('author', { title: 'Esta es la página de Créditos'});
+    res.render('author', { title: 'Esta es la página de Créditos', errors: [] });
 }
