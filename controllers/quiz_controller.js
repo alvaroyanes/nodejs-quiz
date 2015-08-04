@@ -16,35 +16,29 @@ exports.load = function(req, res, next, quizId){
 
 // GET /quizes                 || listado de preguntas
 exports.index = function(req, res, next){
-    models.Quiz.findAll().then(
-        function(quizes){
-            res.render('quizes/index', {quizes: quizes,errors:[]});
+    models.Quiz.findAll().then(function(quizes){
+        res.render('quizes/index', {quizes: quizes,errors:[]});
         }
-    ).catch(function(error) { next(error);})
+    ).catch(function(error) { next(error); })
 };
 
 // GET /quizes/:id             || pregunta seleccionada
 exports.show = function(req, res) {
-    models.Quiz.findById(req.params.quizId).then(function(quiz) {
-        res.render('quizes/show', {quiz: req.quiz,errors:[]});
-    })
+    res.render('quizes/show', {quiz: req.quiz,errors:[]});
 };
 
 // GET /quizes/ :id/answer     || comprobación de respuesta
 exports.answer = function(req, res) {
-    models.Quiz.findById(req.params.quizId).then(function(quiz) {
         var resultado = 'Incorrecto';
-        if (req.query.respuesta === req.quiz.respuesta){
+        if (req.query.respuesta.toLowerCase() === req.quiz.respuesta.toLowerCase()){
               resultado = 'Correcto';
-        }else{
+        }
         res.render('quizes/answer', {quiz: req.quiz,
                                     respuesta: resultado,
                                     errors:[]});
-        }
-    })
 };
 
-// Fromulario de nueva pregunta
+// Formulario de nueva pregunta
 exports.new = function(req,res){
     var quiz = models.Quiz.build({
         pregunta: "Pregunta", respuesta: "Respuesta", tema: "Tema"
@@ -55,12 +49,10 @@ exports.new = function(req,res){
 // Crear nueva pregunta
 exports.create = function(req,res){
     var quiz = models.Quiz.build(req.body.quiz);
-    quiz
-    .validate()
-    .then(
-        function(error){
-            if(error){
-                res.render('quizes/new',{quiz: quiz, errors: error.errors})
+    quiz.validate().then(
+        function(err){
+            if(err){
+                res.render('quizes/new',{quiz: quiz, errors: err.errors})
             }else{
                 quiz.save({fields: ["pregunta","respuesta","tema"]}).then(function(){
                     res.redirect('/quizes');
@@ -82,11 +74,11 @@ exports.update = function(req,res){
     req.quiz.respuesta = req.body.quiz.respuesta;
 
     req.quiz.validate().then(
-        function(error){
-            if(error){
+        function(err){
+            if(err){
                 res.render('quizes/edit',{
                     quiz: req.quiz,
-                    errors: error.errors})
+                    errors: err.errors})
             }else{
                 req.quiz.save({fields: ["pregunta","respuesta","tema"]})
                 .then(function(){ res.redirect('/quizes'); })

@@ -20,7 +20,8 @@ var Sequelize = require('sequelize');
 //Usar BBDD SQLite o Postgres
 if(process.env.DATABASE_STORAGE != null){
   // Usar DDBB sqlite
-  var dialect = 'sqlite'; var sequelize = new Sequelize (null, null, null, {dialect: dialect, storage: storage});}
+  var dialect = 'sqlite'; var sequelize = new Sequelize (null, null, null,{
+  	dialect: dialect, storage: storage});}
 else{
   // Usar DDBB postgres
   var sequelize = new Sequelize(DB_name, user, pwd,{
