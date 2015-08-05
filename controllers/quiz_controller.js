@@ -16,7 +16,15 @@ exports.load = function(req, res, next, quizId){
 
 // GET /quizes                 || listado de preguntas
 exports.index = function(req, res, next){
-    models.Quiz.findAll().then(function(quizes){
+    var str = req.query.search;
+    // Si se indica un texto a buscar, se realiza la búsqueda
+    if(!req.query.search){
+        str = '';
+    }else{
+        str = str.split(' ').join('%'); // URL-Cambio espacios por "%"
+    }
+
+    models.Quiz.findAll({where: ["lower(pregunta) like ?", '%'+ str.toLowerCase() + '%'], order: 'tema ASC'}).then(function(quizes){
         res.render('quizes/index', {quizes: quizes, errors:[]});
         }
     ).catch(function(error) { next(error); })
