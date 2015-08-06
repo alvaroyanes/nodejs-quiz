@@ -5,35 +5,41 @@
 	</tr>
 </form>
 <table>
-	<tr><td>&nbsp;</td></tr>
-	<tr>
-		<td>Tema:</td>
-		<td>&nbsp;&nbsp;</td>
-		<td>Pregunta:</td>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-	</tr>
-<%
-var i; for (i=0; i < quizes.length; i++) {
-%>
-	<tr>
-		<td><%= quizes[i].tema %> - </td>
-		<td>&nbsp;&nbsp;</td>
-		<td>
-			<a href="/quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a>
-		</td>
-		<td>&nbsp;&nbsp;</td>
-		<td>
-			<a href="/quizes/<%= quizes[i].id%>/edit"><button>Editar</button></a>
-		</td>
-		<td>&nbsp;</td>
-		<td>
-			<form method="post" action="/quizes/<%= quizes[i].id%>?_method=delete">
-				<button type="submit" onclick="return confirm('Borrar: <%= quizes[i].pregunta %>');">Borrar</button>
-			</form>
-		</td>
-	</tr>
-<% } %></table>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td>Tema:</td>
+			<td>&nbsp;&nbsp;</td>
+			<td>Pregunta:</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+
+	<% var i; for (i=0; i < quizes.length; i++) { %>
+		<tr>
+			<td><%= quizes[i].tema %> - </td>
+			<td>&nbsp;&nbsp;</td>
+			<td>
+				<a href="/quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a>
+			</td>
+			<td>&nbsp;&nbsp;</td>
+			<%if(session.user){%>
+				<td>
+					<a href="/quizes/<%= quizes[i].id%>/edit"><button>Editar</button></a>
+				</td>
+				<td>&nbsp;</td>
+				<td>
+					<form method="post" action="/quizes/<%= quizes[i].id%>?_method=delete">
+						<button type="submit" onclick="return confirm('Borrar: <%= quizes[i].pregunta %>');">Borrar</button>
+					</form>
+				</td>
+			<% } %>
+		</tr>
+	<% } %>
+
+</table>
+
 <br/>
-<a href="/quizes/nuevo"><button type="button">Crear una nueva pregunta</button></a>
+<% if(session.user){ %>
+	<a href="/quizes/nuevo"><button type="button">Crear una nueva pregunta</button></a>
+<% } %>
