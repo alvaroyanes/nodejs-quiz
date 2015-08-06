@@ -50,6 +50,7 @@ app.use(function(req, res, next){
       if ((actualTime - sessionTime) > timer) {
         delete req.session.user;
         console.log("Ha transcurrido inactivo más de 2 minutos");
+        res.redirect('/login');
       } else {
         req.session.user.sessionTime = new Date();
       }
