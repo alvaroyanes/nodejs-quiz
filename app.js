@@ -40,6 +40,23 @@ app.use(function(req,res,next){
   next();
 });
 
+// Auto logout 120.000ms (2min) si usuario no realiza peticiones HTTP
+app.use(function(req, res, next){
+    if (req.session.user) {
+      var timer= 120000; // 2m * 60s * 1000ms
+      var actualTime= (new Date()).getTime();
+      var sessionTime= (new Date (req.session.user.loginTime)).getTime();
+
+      if ((actualTime - sessionTime) > timer) {
+        delete req.session.user;
+        console.log("Ha transcurrido inactivo más de 2 minutos");
+      } else {
+        req.session.user.sessionTime = new Date();
+      }
+    }
+  next();
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
