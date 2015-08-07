@@ -40,7 +40,7 @@ var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
 var Comment = sequelize.import(path.join(__dirname, 'comment'));
 
     // Relación de Quiz a Comment
-    Comment.belongsTo(Quiz);
+    Comment.belongsTo(Quiz, {onDelete: 'CASCADE'});// Eliminar comentarios al borrar pregunta
     Quiz.hasMany(Comment);
 
 exports.Quiz = Quiz;// Exportar definición de la tabla Quiz
